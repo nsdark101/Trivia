@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}תוצאות המשחק{% endblock %}
+
+{% block content %}
+<h1>סיכום המשחק 🎯</h1>
+
+<div class="center">
+    <h2>ענית נכון על {{ score }} מתוך {{ total }} שאלות.</h2>
+    {% set percentage = (score / total * 100) | round(0, 'floor') %}
+    <p>ציון: {{ percentage }}%</p>
+
+    {% if percentage == 100 %}
+        <p>🥇 מושלם! אתה אלוף טריוויה!</p>
+    {% elif percentage >= 70 %}
+        <p>💪 יפה מאוד! טריוויה בהחלט חזקה אצלך.</p>
+    {% elif percentage >= 40 %}
+        <p>🙂 לא רע, יש מקום לשיפור.</p>
+    {% else %}
+        <p>😅 אפשר לנסות שוב ולהשתפר!</p>
+    {% endif %}
+</div>
+
+<div class="center">
+    <a href="/" class="btn btn-primary">שחק שוב 🔁</a>
+</div>
+{% endblock %}

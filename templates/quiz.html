@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}משחק טריוויה{% endblock %}
+
+{% block content %}
+<h1>🎮 משחק טריוויה בעברית</h1>
+
+<div class="question-meta">
+    שאלה {{ question_index + 1 }} מתוך {{ total_questions }}
+</div>
+
+<h2>{{ question.question }}</h2>
+
+<form method="post" action="/quiz">
+    <div class="options">
+        {% for option in question.options %}
+            <div class="option">
+                <label>
+                    <input type="radio" name="option" value="{{ loop.index0 }}" required>
+                    {{ option }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+
+    <input type="hidden" name="question_index" value="{{ question_index }}">
+    <input type="hidden" name="score" value="{{ score }}">
+    <input type="hidden" name="questions_order"
+           value="{{ questions_order | join(',') if questions_order is iterable else questions_order }}">
+
+    <div class="center">
+        <button type="submit" class="btn btn-primary">אישור ➜</button>
+    </div>
+</form>
+
+<div class="score">
+    ניקוד נוכחי: {{ score }}
+</div>
+
+{% if feedback %}
+    <div class="feedback {% if 'נכון' in feedback %}ok{% else %}bad{% endif %}">
+        {{ feedback }}
+    </div>
+{% endif %}
+{% endblock %}
